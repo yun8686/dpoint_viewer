@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,25 +22,68 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
-  static List<Widget> _pageList = [
-    CustomPage(pannelColor: Colors.cyan, title: 'Home'),
-    CustomPage(pannelColor: Colors.green, title: 'Settings'),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  double active_percent = 0.7;
+  double balance_percent = 0.3;
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('サンプル1'),
+        title: const Text('ドコモポイント'),
       ),
-      body: _pageList[_selectedIndex],
+      body: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: new CircularPercentIndicator(
+              radius: size.width / 2 - 16,
+              lineWidth: 12.0,
+              animation: true,
+              percent: active_percent,
+              center: new Text(
+                "+2.3%",
+                style: new TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28.0,
+                  color: Colors.red,
+                ),
+              ),
+              footer: new Text(
+                "アクティブ",
+                style:
+                    new TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+              ),
+              circularStrokeCap: CircularStrokeCap.round,
+              progressColor: Colors.orange,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: new CircularPercentIndicator(
+              radius: size.width / 2 - 16,
+              lineWidth: 13.0,
+              animation: true,
+              percent: balance_percent,
+              center: new Text(
+                "-0.5%",
+                style: new TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.blue,
+                ),
+              ),
+              footer: new Text(
+                "バランス",
+                style:
+                    new TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+              ),
+              circularStrokeCap: CircularStrokeCap.round,
+              progressColor: Colors.green,
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -52,7 +96,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }
