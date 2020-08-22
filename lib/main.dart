@@ -174,18 +174,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class SafeAreaSample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: List.generate(100, (i) => Text('$i 行目')),
-      ),
-      backgroundColor: Colors.blue,
-    );
-  }
-}
-
 class RelationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
