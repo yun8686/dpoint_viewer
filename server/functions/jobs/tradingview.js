@@ -50,17 +50,25 @@ async function runTradingView(context) {
       'document.querySelector(".tv-symbol-price-quote__value.js-symbol-last span").innerText.includes(".")'
     );
     console.log("page", await page.title());
-    const prevPrice = await page.evaluate(() => {
-      return document.querySelectorAll(
-        ".tv-symbol-price-quote__value.js-symbol-last span"
-      )[0].innerText;
+    const { currentPrice, prevPrice } = await page.evaluate(() => {
+      return {
+        currentPrice: document.querySelectorAll(
+          ".tv-symbol-price-quote__value.js-symbol-last span"
+        )[0].innerText,
+        prevPrice: document.querySelectorAll(
+          ".tv-symbol-price-quote__change span"
+        )[0].innerText,
+      };
     });
-    results.push({ symbol, prevPrice });
+    results.push({ symbol, currentPrice, prevPrice });
   }
-
-  await db.collection("price_list").doc(dateText).set({
-    results: results,
-  });
+  if (process.env.NODE_ENV !== "production") {
+    console.log(results);
+  } else {
+    await db.collection("price_list").doc(dateText).set({
+      results: results,
+    });
+  }
 }
 
 function getCurrentDate() {

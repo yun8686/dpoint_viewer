@@ -23,4 +23,4 @@ exports.tradingView = functions
     await runTradingView(context);
   });
 
-//runTradingView();
+if (process.env.NODE_ENV !== "production") runTradingView();
