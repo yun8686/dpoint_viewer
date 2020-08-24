@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dpoint_viewer/page/voting.dart';
+// import 'package:dpoint_viewer/page/voting.dart';
+import 'package:dpoint_viewer/page/expectation.dart';
 import 'package:dpoint_viewer/page/relation.dart';
 
 void main() => runApp(MyApp());
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('ドコモポイント'),
       ),
-      body: _selectedIndex == 0 ? VotingPage() : RelationPage(),
+      body: _selectedIndex == 0 ? ExpectationPage() : RelationPage(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
