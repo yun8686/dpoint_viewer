@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ドコモポイント'),
+        title: const Text('ドコモポイント予測アプリ'),
       ),
       body: _selectedIndex == 0 ? ExpectationPage() : RelationPage(),
       bottomNavigationBar: BottomNavigationBar(
