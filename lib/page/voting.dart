@@ -1,3 +1,4 @@
+import 'package:dpoint_viewer/Provider/PriceList.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -17,6 +18,7 @@ class VotingPageState extends State<VotingPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    PriceListProvider.loadLatestPrice();
     return Column(
       children: <Widget>[
         Row(

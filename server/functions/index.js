@@ -17,7 +17,7 @@ exports.tradingView = functions
     timeoutSeconds: 260,
   })
   .region("asia-northeast1")
-  .pubsub.schedule("every 5 minutes from 8:30 to 21:00")
+  .pubsub.schedule("every 15 minutes")
   .timeZone("Asia/Tokyo")
   .onRun(async (context) => {
     await runTradingView(context);

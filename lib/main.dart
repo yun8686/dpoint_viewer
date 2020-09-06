@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 // import 'package:dpoint_viewer/page/voting.dart';
 import 'package:dpoint_viewer/page/expectation.dart';
 import 'package:dpoint_viewer/page/relation.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
