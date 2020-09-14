@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:dpoint_viewer/page/voting.dart';
 import 'package:dpoint_viewer/page/expectation.dart';
 import 'package:dpoint_viewer/page/relation.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:dpoint_viewer/local_notications_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,12 +24,33 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  final notifications = FlutterLocalNotificationsPlugin();
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  final notifications = FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+    final settingsAndroid = AndroidInitializationSettings('app_icon');
+    final settingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) =>
+            onSelectNotification(payload));
+
+    notifications.initialize(
+        InitializationSettings(settingsAndroid, settingsIOS),
+        onSelectNotification: onSelectNotification);
+    showOngoingNotification(notifications,
+        title: 'dポイント比較ナビ', body: 'そろそろ変更締め切りの時間です', time: Time(17, 30, 0));
+  }
+
+  Future onSelectNotification(String payload) async =>
+      notifications.cancelAll();
 
   @override
   Widget build(BuildContext context) {
